@@ -1,0 +1,40 @@
+
+def remove_consecutive_duplicates(word):
+    '''
+    >>> remove_consecutive_duplicates('')
+    ''
+    >>> remove_consecutive_duplicates('a')
+    'a'
+    >>> remove_consecutive_duplicates('ab')
+    'ab'
+    >>> remove_consecutive_duplicates('aba')
+    'aba'
+    >>> remove_consecutive_duplicates('aaabbbbbaaa')
+    'aba'
+    >>> remove_consecutive_duplicates('abcaaabbbcccabc')
+    'abcabcabc'
+    >>> remove_consecutive_duplicates('aaabbbbbaaacaacdddd')
+    'abacacd'
+    '''
+    # Insert your code here (the output is returned, not printed out) 
+
+    final_word = []
+    for i, v in enumerate(word):
+        if ((len(word)) > (i +1)) and word[i] != word[i+1]:
+            final_word.append(word[i])
+        else:
+            continue
+            
+    if len(word) > 0:
+        last_word = word[-1]
+        final_word.append(last_word)
+
+    final_word_2 = ''
+    for i in final_word:
+        final_word_2+=i
+    return final_word_2
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
