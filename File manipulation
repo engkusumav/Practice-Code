@@ -1,0 +1,65 @@
+
+'''
+Will be tested with year between 1913 and 2013.
+You might find the reader() function of the csv module useful,
+but you can also use the split() method of the str class.
+'''
+
+import csv
+import pandas as pd
+
+def f(year):
+    '''
+    >>> f(1914)
+    In 1914, maximum inflation was: 2.0
+    It was achieved in the following months: Aug
+    >>> f(1922)
+    In 1922, maximum inflation was: 0.6
+    It was achieved in the following months: Jul, Oct, Nov, Dec
+    >>> f(1995)
+    In 1995, maximum inflation was: 0.4
+    It was achieved in the following months: Jan, Feb
+    >>> f(2013)
+    In 2013, maximum inflation was: 0.82
+    It was achieved in the following months: Feb
+    '''
+    months = 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    # Insert your code here
+    max_inf = -1000
+    inflation = []
+    new_list = []
+    with open('cpiai.csv') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        next(csv_reader)
+        for i in csv_reader:
+            if float(i[0][0:4]) == float(year):
+                if float(i[2]) > float(max_inf):
+                    max_inf = i[2]
+    monthss = []
+    with open('cpiai.csv') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        next(csv_reader)
+        for i in csv_reader:
+            if float(i[0][0:4]) == float(year):
+                if float(i[2]) == float(max_inf):
+                    monthss.append(i[0][5:7])
+    dicts = {}
+    for i in range(1, 13):
+        dicts[i] = months[i - 1]
+    
+    final_months = ''
+    for i in monthss:
+        if len(monthss) == 1:
+            final_months += dicts[int(i)] + ', '
+        else:
+            final_months += dicts[int(i)] + ', '
+    final_months = final_months[:-2]
+
+        
+    print(f'In {year}, maximum inflation was: {max_inf}')
+    print(f'It was achieved in the following months: {final_months}')
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
